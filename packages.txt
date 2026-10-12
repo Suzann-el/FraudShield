@@ -1,1 +1,1 @@
-echo build-essential > packages.txt
+build-essential
