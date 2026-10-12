@@ -100,15 +100,6 @@ cp .env.example .env
 # Éditer .env avec vos paramètres MySQL et chemins vers les données
 ```
 
-Variables importantes :
-
-```bash
-# Base de données
-DB_HOST=localhost
-DB_PORT=3306
-DB_NAME=fraudshield
-DB_USER=root
-DB_PASSWORD=votre_mot_de_passe
 
 # Données (télécharger depuis Kaggle)
 TRAIN_TRANSACTION=data/raw/train_transaction.csv
@@ -354,7 +345,7 @@ python-dotenv==1.0.1   # Variables d'environnement
 ## 👩‍💻 Auteur
 
 **Saoussan EL HAOUZI** — Data Scientist  
-Spécialisation : détection d'anomalies, modélisation ML, secteur bancaire / finance
+
 
 ---
 
