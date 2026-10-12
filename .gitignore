@@ -1,0 +1,81 @@
+# ─────────────────────────────────────────────────────────────
+# FraudShield — .gitignore
+# ─────────────────────────────────────────────────────────────
+
+# Variables d'environnement (NE JAMAIS committer)
+.env
+.env.local
+.env.production
+
+# ─── Données (volumineuses / propriétaires) ───────────────────
+data/raw/*.csv
+data/raw/*.zip
+data/processed/*.parquet
+data/processed/*.feather
+
+# Garder les exemples
+!data/raw/.gitkeep
+!data/processed/.gitkeep
+
+# ─── Modèles entraînés ────────────────────────────────────────
+models/*.pkl
+models/*.joblib
+models/*.bin
+
+# ─── Rapports générés ─────────────────────────────────────────
+reports/*.png
+reports/*.csv
+reports/coverage_html/
+!reports/.gitkeep
+
+# ─── Python ───────────────────────────────────────────────────
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+*.pyo
+
+# Distributions / packaging
+.Python
+build/
+dist/
+*.egg-info/
+*.egg
+MANIFEST
+
+# Tests et couverture
+.pytest_cache/
+.coverage
+htmlcov/
+.tox/
+*.xml
+
+# ─── Environnements virtuels ──────────────────────────────────
+venv/
+env/
+.venv/
+.env/
+ENV/
+env.bak/
+venv.bak/
+
+# ─── IDEs ─────────────────────────────────────────────────────
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+
+# ─── Jupyter ──────────────────────────────────────────────────
+.ipynb_checkpoints/
+*.ipynb_checkpoints
+
+# ─── MySQL ────────────────────────────────────────────────────
+*.sql.bak
+*.dump
+
+# ─── Logs ─────────────────────────────────────────────────────
+*.log
+logs/
