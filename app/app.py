@@ -577,11 +577,11 @@ def page_scoring(threshold: float):
             else:
                 st.success("Aucun facteur de risque majeur détecté.")
 
+            decision = 'Alerte → investigation requise' if predicted else "Pas d'alerte"
             st.markdown(f"""
             **Threshold utilisé** : {threshold}
-            **Décision** : {'Alerte → investigation requise' if predicted else 'Pas d\'alerte'}
+            **Décision** : {decision}
             """)
-
 
 # ─────────────────────────────────────────────
 # Navigation principale
