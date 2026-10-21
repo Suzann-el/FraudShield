@@ -164,7 +164,7 @@ def compute_metrics(df: pd.DataFrame, threshold: float) -> dict:
 
 def render_sidebar():
     with st.sidebar:
-        st.image("https://img.shields.io/badge/FraudShield-v1.0-1B2A4A?style=for-the-badge", use_column_width=True)
+        st.markdown("## 🛡️ FraudShield")
         st.markdown("---")
 
         st.subheader("⚙️ Configuration")
@@ -413,18 +413,18 @@ def page_threshold_analysis(df: pd.DataFrame):
         st.plotly_chart(fig2, use_container_width=True)
 
     # Tableau comparatif
-st.subheader("📋 Tableau comparatif des thresholds")
-display_cols = ["threshold", "precision", "recall", "f1", "n_alerts", "fp", "fn"]
-df_display = df_th[display_cols].copy()
-df_display["threshold"] = df_display["threshold"].map("{:.2f}".format)
-df_display["precision"] = df_display["precision"].map("{:.3f}".format)
-df_display["recall"]    = df_display["recall"].map("{:.3f}".format)
-df_display["f1"]        = df_display["f1"].map("{:.3f}".format)
-df_display["n_alerts"]  = df_display["n_alerts"].map("{:,}".format)
-df_display["fp"]        = df_display["fp"].map("{:,}".format)
-df_display["fn"]        = df_display["fn"].map("{:,}".format)
+    st.subheader("📋 Tableau comparatif des thresholds")
+    display_cols = ["threshold", "precision", "recall", "f1", "n_alerts", "fp", "fn"]
+    df_display = df_th[display_cols].copy()
+    df_display["threshold"] = df_display["threshold"].map("{:.2f}".format)
+    df_display["precision"] = df_display["precision"].map("{:.3f}".format)
+    df_display["recall"]    = df_display["recall"].map("{:.3f}".format)
+    df_display["f1"]        = df_display["f1"].map("{:.3f}".format)
+    df_display["n_alerts"]  = df_display["n_alerts"].map("{:,}".format)
+    df_display["fp"]        = df_display["fp"].map("{:,}".format)
+    df_display["fn"]        = df_display["fn"].map("{:,}".format)
 
-st.dataframe(df_display, use_container_width=True)
+    st.dataframe(df_display, use_container_width=True)
 
     st.info(f"""
     **Threshold optimal (F1)** : {df_th.loc[best_f1_idx, 'threshold']:.2f}
@@ -461,12 +461,6 @@ def page_alerts(df: pd.DataFrame, threshold: float):
 
     st.write(f"**{len(filtered)} alertes** affichées (sur {len(alerts):,} total)")
 
-    # Colorisation
-    def colorize_score(val):
-        if val >= 0.8:   return "background-color: #fde8e8"
-        elif val >= 0.5: return "background-color: #fef3cd"
-        return ""
-
     display = filtered[[
         "TransactionID", "fraud_score", "TransactionAmt",
         "ProductCD", "card4", "hour", "investigation_status"
@@ -475,16 +469,12 @@ def page_alerts(df: pd.DataFrame, threshold: float):
         "fraud_score": "Score Fraude",
         "TransactionAmt": "Montant ($)",
         "investigation_status": "Statut",
-    })
+    }).copy()
 
-    st.dataframe(
-        display.style.format({
-            "Score Fraude": "{:.4f}",
-            "Montant ($)": "{:,.2f}",
-        }).applymap(colorize_score, subset=["Score Fraude"]),
-        use_container_width=True,
-        height=500,
-    )
+    display["Score Fraude"] = display["Score Fraude"].map("{:.4f}".format)
+    display["Montant ($)"]  = display["Montant ($)"].map("{:,.2f}".format)
+
+    st.dataframe(display, use_container_width=True, height=500)
 
 
 def page_scoring(threshold: float):
