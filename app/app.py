@@ -413,20 +413,18 @@ def page_threshold_analysis(df: pd.DataFrame):
         st.plotly_chart(fig2, use_container_width=True)
 
     # Tableau comparatif
-    st.subheader("📋 Tableau comparatif des thresholds")
-    display_cols = ["threshold", "precision", "recall", "f1", "n_alerts", "fp", "fn"]
-    st.dataframe(
-        df_th[display_cols].style.format({
-            "threshold": "{:.2f}",
-            "precision": "{:.3f}",
-            "recall":    "{:.3f}",
-            "f1":        "{:.3f}",
-            "n_alerts":  "{:,}",
-            "fp":        "{:,}",
-            "fn":        "{:,}",
-        }).highlight_max(subset=["f1"], color="#d4edda"),
-        use_container_width=True,
-    )
+st.subheader("📋 Tableau comparatif des thresholds")
+display_cols = ["threshold", "precision", "recall", "f1", "n_alerts", "fp", "fn"]
+df_display = df_th[display_cols].copy()
+df_display["threshold"] = df_display["threshold"].map("{:.2f}".format)
+df_display["precision"] = df_display["precision"].map("{:.3f}".format)
+df_display["recall"]    = df_display["recall"].map("{:.3f}".format)
+df_display["f1"]        = df_display["f1"].map("{:.3f}".format)
+df_display["n_alerts"]  = df_display["n_alerts"].map("{:,}".format)
+df_display["fp"]        = df_display["fp"].map("{:,}".format)
+df_display["fn"]        = df_display["fn"].map("{:,}".format)
+
+st.dataframe(df_display, use_container_width=True)
 
     st.info(f"""
     **Threshold optimal (F1)** : {df_th.loc[best_f1_idx, 'threshold']:.2f}
