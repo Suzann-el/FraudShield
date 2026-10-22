@@ -3,7 +3,6 @@ lightgbm==4.5.0
 scikit-learn==1.5.2
 numpy==1.26.4
 pandas==2.1.4
-shap==0.45.1
 matplotlib==3.9.2
 seaborn==0.13.2
 sqlalchemy==2.0.36
